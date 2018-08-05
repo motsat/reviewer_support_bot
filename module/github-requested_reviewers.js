@@ -22,9 +22,9 @@ const githubRequestedReviewer = function(repo) {
 
 	this.assign = (prNumber) => {
 		return new Promise( (resolve, reject) => {
-			this.options.auth = { user: "motsat", password: ""};//"my-token";//this.auth;
+			this.options.auth = { user: "motsat", password: "" };//"my-token";//this.auth;
 			this.options.form = JSON.stringify({
-				reviewers: ["motsat"],
+				reviewers: ["mo10sa10"],
         team_reviewers: []
 			});
 
