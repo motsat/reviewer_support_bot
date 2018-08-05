@@ -1,4 +1,6 @@
 const Botkit = require('botkit');
+//const settings = JSON.parse(process.env.ISSUE_BOT_SETTINGS) || require("./data/settings.json");
+const gh = require("./module/github-requested_reviewers")('motsat/reviewer_support_bot');
 
 if (!process.env.token) {
   console.log('Error: Specify token in environment');
@@ -19,5 +21,6 @@ controller.spawn({
 
 // say hi
 controller.hears('hi',['direct_message','direct_mention','mention'],function(bot,message) {
-    bot.reply(message,'hi');
+  gh.assign(3)
+  bot.reply(message,'hi');
 });

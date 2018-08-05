@@ -1,17 +1,14 @@
 // see: https://developer.github.com/v3/pulls/review_requests/
-const githubController = function(params) {
+const githubRequestedReviewer = function(repo) {
 	this.request = require("request");
 	this.auth = {};
 	this.options = {
-		url: "https://api.github.com/repos/" + params + "/issues",
-    POST /repos/:owner/:repo/pulls/:number/requested_reviewers
-    https://github.com/motsat/reviewer_support_bot/pulls
-
+    url: 'https://api.github.com/repos/motsat/reviewer_support_bot/pulls/3/requested_reviewers',
 		method: "POST",
 		json: true,
 		headers: {
 			"Content-Type":"application/json",
-			"User-Agent": "BK-Slack-to-Issues"
+			"User-Agent": "ReviewSupportBot"
 		},
 	};
 
@@ -23,12 +20,12 @@ const githubController = function(params) {
 		this.auth = data;
 	};
 
-	this.createIssue = (title, description) => {
+	this.assign = (prNumber) => {
 		return new Promise( (resolve, reject) => {
-			this.options.auth = this.auth;
+			this.options.auth = { user: "motsat", password: ""};//"my-token";//this.auth;
 			this.options.form = JSON.stringify({
-				title: title,
-				body: description
+				reviewers: ["motsat"],
+        team_reviewers: []
 			});
 
 			this.request(this.options, (err, res)=>{
@@ -40,4 +37,4 @@ const githubController = function(params) {
 	};
 };
 
-module.exports = params => {return new githubController(params);};
+module.exports = params => {return new githubRequestedReviewer(params);};
