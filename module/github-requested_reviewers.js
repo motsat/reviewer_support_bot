@@ -1,9 +1,9 @@
 // see: https://developer.github.com/v3/pulls/review_requests/
-const githubRequestedReviewer = function(repo) {
+const githubRequestedReviewer = function(settings) {
 	this.request = require("request");
-	this.auth = {};
+	this.auth = { user: settings.user, password: settings.password };
 	this.options = {
-    url: 'https://api.github.com/repos/motsat/reviewer_support_bot/pulls/3/requested_reviewers',
+    url: settings.api_endpoint + "repos/" + settings.repository + '/pulls/3/requested_reviewers',
 		method: "POST",
 		json: true,
 		headers: {
@@ -22,7 +22,7 @@ const githubRequestedReviewer = function(repo) {
 
 	this.assign = (prNumber) => {
 		return new Promise( (resolve, reject) => {
-			this.options.auth = { user: "motsat", password: "" };//"my-token";//this.auth;
+			this.options.auth = this.auth;
 			this.options.form = JSON.stringify({
 				reviewers: ["mo10sa10"],
         team_reviewers: []

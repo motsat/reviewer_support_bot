@@ -1,8 +1,9 @@
 const Botkit = require('botkit');
-//const settings = JSON.parse(process.env.ISSUE_BOT_SETTINGS) || require("./data/settings.json");
-const gh = require("./module/github-requested_reviewers")('motsat/reviewer_support_bot');
+var fs = require('fs');
+const settings = JSON.parse(fs.readFileSync("./config/settings.json", 'utf8'));
+const gh = require("./module/github-requested_reviewers")(settings.github);
 
-if (!process.env.token) {
+if (!settings.slack.token) {
   console.log('Error: Specify token in environment');
   process.exit(1);
 }
@@ -12,7 +13,7 @@ const controller = Botkit.slackbot({
 });
 
 controller.spawn({
-    token: process.env.token
+    token: settings.slack.token
 }).startRTM(function(err){
     if (err) {
         throw new Error(err);
