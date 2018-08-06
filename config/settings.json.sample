@@ -1,0 +1,11 @@
+{
+  "slack": {
+    "token": "see : https://api.slack.com/web"
+  },
+  "github": {
+    "api_endpoint": "https://api.github.com/",
+    "repository": "yourName/RepoName",
+    "user": "yourName",
+    "password": "see : https://github.com/settings/tokens"
+  }
+}
