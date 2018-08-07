@@ -7,5 +7,8 @@
     "repository": "yourName/RepoName",
     "user": "yourName",
     "password": "see : https://github.com/settings/tokens"
-  }
+  },
+  "accounts": [
+    { "github": "your-github-account", "slack": "your-slack-account" }
+  ]
 }
